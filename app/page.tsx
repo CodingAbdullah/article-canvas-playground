@@ -1,10 +1,10 @@
-import CTA from "@/components/CTA";
-import FeaturesSection from "@/components/FeaturesSection";
+import CTA from "@/components/home/CTA";
+import FeaturesSection from "@/components/features/FeaturesSection";
 import Footer from "@/components/Footer";
-import HeroSection from "@/components/HeroSection";
+import HeroSection from "@/components/home/HeroSection";
 
 // Home page of the Article Canvas playground application
-export default async function Home() {  
+export default async function HomePage() {  
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
@@ -15,9 +15,6 @@ export default async function Home() {
       
       {/* Call to Action */}
       <CTA />
-      
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

@@ -1,10 +1,9 @@
 import Navbar from "@/components/Navbar";
-import FeaturesGrid from "@/components/FeaturesGrid";
-import FeaturesTechnicalSection from "@/components/FeaturesTechnicalSection";
-import Footer from "@/components/Footer";
-import UseCasesSection from "@/components/UseCasesSection";
+import FeaturesGrid from "@/components/features/FeaturesGrid";
+import FeaturesTechnicalSection from "@/components/features/FeaturesTechnicalSection";
+import UseCasesSection from "@/components/home/UseCasesSection";
 
-// Features page component
+// Features page component of the ArticleCanvas project
 export default function FeaturesPage() {
   return (
     <div className="min-h-screen">
@@ -39,9 +38,6 @@ export default function FeaturesPage() {
 
         {/* Use Cases */}
         <UseCasesSection /> 
-      
-        {/* Footer */}
-        <Footer />
     </div>
   );
 }
