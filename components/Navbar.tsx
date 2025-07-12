@@ -19,7 +19,7 @@ export default function Navbar() {
                         <Link href="/" className="text-kings-silver/80 hover:text-kings-white transition-colors">
                             Home
                         </Link>
-                        <Link href="/" className="text-kings-silver/80 hover:text-kings-white transition-colors">
+                        <Link href="/features" className="text-kings-silver/80 hover:text-kings-white transition-colors">
                             Features
                         </Link>                        
                         <Link href='/editor'>

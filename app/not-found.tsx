@@ -12,7 +12,7 @@ export default function NotFoundPage() {
             href="/"
             className="px-6 py-2 bg-black text-white rounded hover:bg-gray-800 transition"
         >
-            Go back home
+            Go Back Home
         </Link>
     </div>
   );
