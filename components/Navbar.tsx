@@ -19,7 +19,9 @@ export default function Navbar() {
                         <Link href="/" className="text-kings-silver/80 hover:text-kings-white transition-colors">
                             Home
                         </Link>
-                        <span className="text-kings-white font-medium">Features</span>
+                        <Link href="/" className="text-kings-silver/80 hover:text-kings-white transition-colors">
+                            Features
+                        </Link>                        
                         <Link href='/editor'>
                             <Button 
                                 className="bg-kings-silver hover:bg-kings-silver/90 text-kings-black font-medium px-4 py-2 h-auto rounded-lg"

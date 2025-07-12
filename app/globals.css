@@ -130,6 +130,11 @@
   .hover\:bg-kings-silver\/10:hover { background-color: rgba(160, 160, 160, 0.1); }
   .hover\:bg-kings-silver\/90:hover { background-color: rgba(160, 160, 160, 0.9); }
   .hover\:text-kings-white:hover { color: rgb(255, 255, 255); }
+
+  .placeholder-visible::placeholder {
+    color: rgb(156, 163, 175) !important;
+    opacity: 1 !important;
+  }
 }
 
 @layer components {
