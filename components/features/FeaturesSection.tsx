@@ -1,4 +1,4 @@
-import NotepadCard from "@/components/NotepadCard";
+import NotepadCard from "@/components/home/NotepadCard";
 
 // Features section of the home page
 export default function FeaturesSection() {
