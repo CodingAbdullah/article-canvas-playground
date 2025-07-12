@@ -22,7 +22,7 @@ import {
   Save,
   Play,
   Pause,
-  FileText,
+  FileText
 } from 'lucide-react';
 import { 
   DropdownMenu,
@@ -202,12 +202,103 @@ export default function EditorPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
-        {/* Navbar */}
-        <Navbar />
-                  
+      {/* Navbar */}
+      <Navbar />
+      
+      {/* Header */}
+      <header className="frosted border-b border-white/10 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <FileText className="w-6 h-6 text-kings-silver" />
+                <span className="text-kings-white font-semibold">NoteCanvas Editor</span>
+              </div>
+              {articleId && (
+                <span className="text-kings-silver/60 text-sm">
+                  /editor/{articleId}
+                </span>
+              )}
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              {/* Download Options */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="border-kings-silver/30">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => handleDownload('pdf')}>
+                    Download as PDF
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDownload('docx')}>
+                    Download as DOCX
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDownload('md')}>
+                    Download as Markdown
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDownload('txt')}>
+                    Download as Text
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Save to Supabase */}
+              <Button 
+                onClick={handleSaveToSupabase}
+                disabled={isSaving}
+                variant="outline" 
+                size="sm"
+                className="border-kings-silver/30"
+              >
+                <Database className="w-4 h-4 mr-2" />
+                {isSaving ? 'Saving...' : 'Save'}
+              </Button>
+
+              {/* Audio Generation */}
+              <Button 
+                onClick={handleGenerateAudio}
+                disabled={isGeneratingAudio}
+                variant="outline" 
+                size="sm"
+                className="border-kings-silver/30"
+              >
+                <Volume2 className="w-4 h-4 mr-2" />
+                {isGeneratingAudio ? 'Generating...' : 'Generate Audio'}
+              </Button>
+
+              {/* Audio Player */}
+              {audioUrl && (
+                <Button 
+                  onClick={toggleAudioPlayback}
+                  variant="outline" 
+                  size="sm"
+                  className="border-green-500/30 text-green-400"
+                >
+                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
+
       {/* Editor Content */}
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="frosted rounded-xl overflow-hidden">
+          {/* Title Input */}
+          <div className="p-6 border-b border-white/10">
+            <Input
+              placeholder="Article title..."
+              value={editorState.title}
+              onChange={(e) => setEditorState(prev => ({ ...prev, title: e.target.value }))}
+              className="text-2xl font-bold bg-transparent border-none text-kings-white placeholder:text-kings-silver/50 focus:ring-0"
+            />
+          </div>
+
           {/* Format Tabs */}
           <Tabs value={editorState.format} onValueChange={(value) => setEditorState(prev => ({ ...prev, format: value as any }))}>
             <div className="px-6 py-4 border-b border-white/10">
@@ -217,15 +308,7 @@ export default function EditorPage() {
                 <TabsTrigger value="text">Plain Text</TabsTrigger>
               </TabsList>
             </div>
-            {/* Title Input */}
-            <div className="p-6 border-b border-white/10">
-                <Input
-                  placeholder="Article title..."
-                  value={editorState.title}
-                  onChange={(e) => setEditorState(prev => ({ ...prev, title: e.target.value }))}
-                  className="text-2xl font-bold bg-transparent border-none text-kings-white placeholder:text-kings-silver/50 focus:ring-0"
-                />
-            </div>
+
             <TabsContent value="medium" className="m-0">
               {/* Medium-style Toolbar */}
               <div className="px-6 py-4 border-b border-white/10">
@@ -323,6 +406,7 @@ export default function EditorPage() {
                   </Button>
                 </div>
               </div>
+
               {/* Rich Text Editor */}
               <div className="p-6">
                 <div
@@ -368,67 +452,7 @@ export default function EditorPage() {
             </TabsContent>
           </Tabs>
         </div>
-        <div className="flex justify-center items-center space-x-2 py-4">
-        {/* Download Options */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="border-kings-silver/30">
-                    <Download className="w-4 h-4 mr-2" />
-                      Download
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => handleDownload('pdf')}>
-                    Download as PDF
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDownload('docx')}>
-                    Download as DOCX
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDownload('md')}>
-                    Download as Markdown
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDownload('txt')}>
-                    Download as Text
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Audio Generation */}
-              <Button 
-                onClick={handleGenerateAudio}
-                disabled={isGeneratingAudio}
-                variant="outline" 
-                size="sm"
-                className="border-kings-silver/30"
-              >
-                <Volume2 className="w-4 h-4 mr-2" />
-                {isGeneratingAudio ? 'Generating...' : 'Generate Audio'}
-              </Button>
-             
-             {/* Save to Supabase */}
-             <Button 
-                onClick={handleSaveToSupabase}
-                disabled={isSaving}
-                variant="outline" 
-                size="sm"
-                className="border-kings-silver/30"
-              >
-                <Database className="w-4 h-4 mr-2" />
-                {isSaving ? 'Saving...' : 'Save'}
-              </Button>
-
-              {/* Audio Player */}
-              {audioUrl && (
-                <Button 
-                  onClick={toggleAudioPlayback}
-                  variant="outline" 
-                  size="sm"
-                  className="border-green-500/30 text-green-400"
-                >
-                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                </Button>
-              )}
-        </div>
+        
         {/* Status Bar */}
         <div className="mt-4 flex items-center justify-between text-sm text-kings-silver/60">
           <div className="flex items-center space-x-4">
@@ -442,6 +466,11 @@ export default function EditorPage() {
           </div>
         </div>
       </div>
+      
+      {/* Hidden audio element for playback */}
+      {audioUrl && (
+        <audio ref={audioRef} src={audioUrl} onEnded={() => setIsPlaying(false)} />
+      )}
     </div>
   );
 }
