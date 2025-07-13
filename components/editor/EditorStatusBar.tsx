@@ -1,6 +1,6 @@
 'use client';
 
-import ArticleMetricsType from "@/app/utils/types/ArticleMetricsType";
+import ArticleMetricsType from "@/utils/types/ArticleMetricsType";
 
 // Editor Status Bar custom component
 export default function EditorStatusBar(props: { articleMetrics: ArticleMetricsType }) {

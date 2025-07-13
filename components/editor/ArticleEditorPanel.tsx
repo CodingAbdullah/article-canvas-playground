@@ -1,8 +1,8 @@
 'use client';
 
-import fetchArticle from "@/app/utils/functions/crud/fetchArticle";
-import ArticleType from "@/app/utils/types/ArticleType";
-import ArticleMetricsType from "@/app/utils/types/ArticleMetricsType";
+import fetchArticle from "@/utils/functions/crud/fetchArticle";
+import ArticleType from "@/utils/types/ArticleType";
+import ArticleMetricsType from "@/utils/types/ArticleMetricsType";
 import Navbar from "../Navbar";
 import EditorStatusBar from "./EditorStatusBar";
 import EditorDownloadPanel from "./EditorDownloadPanel";
@@ -17,6 +17,7 @@ export default function ArticleEditorPanel(props: { aID?: string }) {
     const [articleContent, updateArticleContent] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [ID, setArticleID] = useState<string>('0');
+    const [isNewArticle, updateNewArticleStatus] = useState(false);
     
     const articleMetrics: ArticleMetricsType = useMemo(() => ({
         wordCount: String(articleContent.trim().split(/\s+/).length || 0),
@@ -33,6 +34,7 @@ export default function ArticleEditorPanel(props: { aID?: string }) {
             if (!props.aID) {
                 const articleID = uuidv4();
                 setArticleID(articleID);
+                updateNewArticleStatus(true);
                 return;
             }
 
@@ -67,7 +69,7 @@ export default function ArticleEditorPanel(props: { aID?: string }) {
             <h1 className="pt-5 flex justify-center text-4xl md:text-6xl font-bold gradient-text leading-tight mb-6">
                 Editor
             </h1>
-            <EditorDownloadPanel article={{ id: ID, name: articleTitle, content: articleContent }}/>
+            <EditorDownloadPanel article={{ id: ID, name: articleTitle, content: articleContent }} articleStatus={ isNewArticle } />
             {/* Editor Content */}
             <div className="max-w-5xl mx-auto px-4 py-8">
                 <div className="frosted rounded-xl overflow-hidden">

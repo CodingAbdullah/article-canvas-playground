@@ -1,4 +1,4 @@
-import features from "../../app/utils/constants/FeaturesList";
+import features from "../../utils/constants/FeaturesList";
 import { Check } from "lucide-react";
 
 // Features Grid custom component

@@ -1,4 +1,4 @@
-import UseCaseList from "@/app/utils/constants/UseCasesList";
+import UseCaseList from "@/utils/constants/UseCasesList";
 
 // Use Cases Section custom component
 export default function UseCasesSection() {
