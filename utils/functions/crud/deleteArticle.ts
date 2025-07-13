@@ -5,7 +5,13 @@ const deleteArticle = async (articleID: string) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: articleID })
     });
-    return response.json();
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch article");
+    }
+
+    const data = await response.json();
+    return data;
 };
 
 export default deleteArticle;

@@ -10,7 +10,7 @@ export default function ArticleErrorPage() {
         <div className="bg-gray-900 border border-gray-300 rounded-lg p-8 shadow-md max-w-md w-full">
             <h1 className="text-2xl font-bold text-white mb-2">Page Could Not Load</h1>
             <p className="text-white mb-4">
-                Sorry, we could not load the page, there was a problem loading it.
+                Sorry, we could not load the page/article, perhaps it does not exist.
             </p>
             <Link href='/'>
                 <Button

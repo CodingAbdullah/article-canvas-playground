@@ -7,7 +7,13 @@ const updateArticle = async (article: ArticleType) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: article.id!, title: article.name, content: article.content })
     });
-    return response.json();
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch article");
+    }
+
+    const data = await response.json();
+    return data;
 };
 
 export default updateArticle;

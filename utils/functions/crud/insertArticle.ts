@@ -7,8 +7,14 @@ const insertArticle = async (article: ArticleType) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: article.id!, title: article.name, content: article.content })
     });
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch article");
+    }
 
-    return response.json();
+    const data = await response.json();
+    return data;
+
 };
 
 export default insertArticle;

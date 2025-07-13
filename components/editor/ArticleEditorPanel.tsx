@@ -2,6 +2,7 @@
 
 import fetchArticle from "@/utils/functions/crud/fetchArticle";
 import ArticleType from "@/utils/types/ArticleType";
+import ArticleErrorPage from "@/app/error";
 import ArticleMetricsType from "@/utils/types/ArticleMetricsType";
 import Navbar from "../Navbar";
 import EditorStatusBar from "./EditorStatusBar";
@@ -16,6 +17,7 @@ export default function ArticleEditorPanel(props: { aID?: string }) {
     const [articleTitle, updateArticleTitle] = useState<string>('');
     const [articleContent, updateArticleContent] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
     const [ID, setArticleID] = useState<string>('0');
     const [isNewArticle, updateNewArticleStatus] = useState(false);
     
@@ -47,14 +49,17 @@ export default function ArticleEditorPanel(props: { aID?: string }) {
                 setArticleID(props.aID);
                 setIsLoading(false);
             } 
-            catch (error) {
-                // This will trigger the error boundary
-                throw new Error("Could not load the requested article");
+            catch {
+                setError("Could not fetch requested article");
             } 
         };
 
         loadArticle();
     }, [props.aID]);
+
+    if (error) {
+        return <ArticleErrorPage />
+    }
     
     // Loading state (only show if we're actually loading an article)
     if (isLoading) {

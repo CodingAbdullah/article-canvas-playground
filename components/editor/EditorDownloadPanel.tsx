@@ -70,7 +70,6 @@ export default function EditorDownloadPanel(props: { article: ArticleType, artic
             toast.success('Audio file generated successfully!');
         } 
         catch (error){
-            console.log(error);
             toast.error('Failed to generate audio file. Please try again.');
         } 
         finally {

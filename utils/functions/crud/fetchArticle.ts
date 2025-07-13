@@ -5,14 +5,12 @@ const fetchArticle = async (articleID: string) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: articleID })
     });
-    
-    const data = await response.json();
-    
-    // Check if data is empty/null/undefined
-    if (!data || Object.keys(data).length === 0) {
-        throw new Error('Article not found');
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch article");
     }
-    
+
+    const data = await response.json();
     return data;
 };
 
