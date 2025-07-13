@@ -9,7 +9,7 @@ export default async function generateAudioFile(article: ArticleType): Promise<v
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ article }),
+        body: JSON.stringify({ articleInformation: article }),
     });
 
     if (!response.ok) {

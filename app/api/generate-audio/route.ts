@@ -5,9 +5,10 @@ import openaiClient from '@/utils/functions/openai_client/openAIClient';
 export async function POST(request: NextRequest) {
     try {
         // Parse the request body
-        const { article } = await request.json();
+        const body = await request.json();
+        const { articleInformation } = body;
         
-        if (!article || !article.id! || !article.name || !article.content) {
+        if (!articleInformation.id! || !articleInformation.name || !articleInformation.content) {
             return NextResponse.json(
                 { error: 'Article data is required' },
                 { status: 400 }
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Combine title and content for the audio generation
-        const textToSpeak = `${article.name}. ${article.content}`;
+        const textToSpeak = `${articleInformation.name}. ${articleInformation.content}`;
         
         // Generate audio using OpenAI's text-to-speech API
         // Default options for TTS model and voice type for now
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
         return new NextResponse(arrayBuffer, {
             headers: {
                 'Content-Type': 'audio/mpeg',
-                'Content-Disposition': `attachment; filename="${article.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.mp3"`,
+                'Content-Disposition': `attachment; filename="${articleInformation.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.mp3"`,
             },
         });
     } 
