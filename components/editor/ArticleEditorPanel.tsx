@@ -41,12 +41,14 @@ export default function ArticleEditorPanel(props: { aID?: string }) {
             try {
                 setIsLoading(true);
                 const article: ArticleType = await fetchArticle(props.aID);
+                
                 updateArticleTitle(article.name || '');
                 updateArticleContent(article.content || '');
                 setArticleID(props.aID);
                 setIsLoading(false);
             } 
-            catch {
+            catch (error) {
+                // This will trigger the error boundary
                 throw new Error("Could not load the requested article");
             } 
         };

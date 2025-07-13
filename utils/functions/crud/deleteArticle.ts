@@ -1,17 +1,11 @@
-import getSupabaseClient from "../supabase_client/SupabaseClient";
+// Client-side call to delete an article
+const deleteArticle = async (articleID: string) => {
+    const response = await fetch('/api/article/delete', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: articleID })
+    });
+    return response.json();
+};
 
-// Delete an article from Supabase
-export default async function deleteArticle(articleID: string) {
-  const { data, error } = await getSupabaseClient()
-    .from('Article')
-    .delete()
-    .eq('id', articleID.trim())
-
-    // Conditionally return to the client, the result
-    if (error) {
-        throw new Error("Could not delete article");
-    }
-    else {
-        return data;
-    }
-}
+export default deleteArticle;

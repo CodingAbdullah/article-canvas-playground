@@ -69,7 +69,8 @@ export default function EditorDownloadPanel(props: { article: ArticleType, artic
             await generateAudioFile(props.article);
             toast.success('Audio file generated successfully!');
         } 
-        catch {
+        catch (error){
+            console.log(error);
             toast.error('Failed to generate audio file. Please try again.');
         } 
         finally {
